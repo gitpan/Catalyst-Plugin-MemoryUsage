@@ -2,7 +2,7 @@ NAME
     Catalyst::Plugin::MemoryUsage - Profile memory usage of requests
 
 VERSION
-    version 0.3.1
+    version 0.4.0
 
 SYNOPSIS
     In YourApp.pm:
@@ -36,7 +36,7 @@ DESCRIPTION
     "Catalyst::Plugin::MemoryUsage" adds a memory usage profile to your
     debugging log, which looks like this:
 
-     [debug] memory usage of request
+     [debug] [MemoryUsage] memory usage of request "http://localhost/index" from "127.0.0.1"
      .--------------------------------------------------+------+------+------+------+------+------+------+------+------+------.
      |                                                  | vsz  | del- | rss  | del- | sha- | del- | code | del- | data | del- |
      |                                                  |      | ta   |      | ta   | red  | ta   |      | ta   |      | ta   |

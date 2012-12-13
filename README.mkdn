@@ -4,7 +4,7 @@ Catalyst::Plugin::MemoryUsage - Profile memory usage of requests
 
 # VERSION
 
-version 0.3.1
+version 0.4.0
 
 # SYNOPSIS
 
@@ -43,20 +43,20 @@ In yourapp.conf:
 `Catalyst::Plugin::MemoryUsage` adds a memory usage profile to your debugging
 log, which looks like this:   
 
- [debug] memory usage of request
- .--------------------------------------------------+------+------+------+------+------+------+------+------+------+------.
- |                                                  | vsz  | del- | rss  | del- | sha- | del- | code | del- | data | del- |
- |                                                  |      | ta   |      | ta   | red  | ta   |      | ta   |      | ta   |
- +--------------------------------------------------+------+------+------+------+------+------+------+------+------+------+
- | preparing for the request                        | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/_BEGIN    | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/_AUTO     | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | in the middle of index                           | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/index     | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/_ACTION   | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/_END      | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- | after TestApp::Controller::Root : root/_DISPATCH | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
- '--------------------------------------------------+------+------+------+------+------+------+------+------+------+------'  
+    [debug] [MemoryUsage] memory usage of request "http://localhost/index" from "127.0.0.1"
+    .--------------------------------------------------+------+------+------+------+------+------+------+------+------+------.
+    |                                                  | vsz  | del- | rss  | del- | sha- | del- | code | del- | data | del- |
+    |                                                  |      | ta   |      | ta   | red  | ta   |      | ta   |      | ta   |
+    +--------------------------------------------------+------+------+------+------+------+------+------+------+------+------+
+    | preparing for the request                        | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/_BEGIN    | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/_AUTO     | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | in the middle of index                           | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/index     | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/_ACTION   | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/_END      | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    | after TestApp::Controller::Root : root/_DISPATCH | 28M  |      | 22M  |      | 2.2M |      | 1.1M |      | 20M  |      |
+    '--------------------------------------------------+------+------+------+------+------+------+------+------+------+------'  
 
 # CONFIGURATION
 
@@ -68,7 +68,7 @@ at the end of the request.
 Defaults to true if we are in debugging mode,
 false otherwise.
 
-## action_milestones
+## action\_milestones
 
 If true, automatically adds milestones for each action, as seen in the
 DESCRIPTION.  
@@ -78,7 +78,7 @@ false otherwise.
 
 # METHODS
 
-## `memory_usage()`
+## `memory\_usage()`
 
 Returns the [Memory::Usage](http://search.cpan.org/perldoc?Memory::Usage) object available to the context.
 
@@ -97,7 +97,7 @@ method of that object:
         ...
     }
 
-## `reset_memory_usage()`
+## `reset\_memory\_usage()`
 
 Discards the current `Memory::Usage` object, along with its recorded data,
 and replaces it by a shiny new one.
@@ -115,7 +115,7 @@ NetBSD. This being said, patches are most welcome. :-)
 
 # AUTHOR
 
-Yanick Champoux <yanick@babyl.dyndns.org>
+Yanick Champoux <yanick@babyl.dyndns.org> [![endorse](http://api.coderwall.com/yanick/endorsecount.png)](http://coderwall.com/yanick)
 
 # COPYRIGHT AND LICENSE
 

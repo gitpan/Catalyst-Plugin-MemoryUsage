@@ -1,9 +1,9 @@
 package Catalyst::Plugin::MemoryUsage;
 BEGIN {
-  $Catalyst::Plugin::MemoryUsage::AUTHORITY = 'cpan:yanick';
+  $Catalyst::Plugin::MemoryUsage::AUTHORITY = 'cpan:YANICK';
 }
-BEGIN {
-  $Catalyst::Plugin::MemoryUsage::VERSION = '0.3.1';
+{
+  $Catalyst::Plugin::MemoryUsage::VERSION = '0.4.0';
 }
 #ABSTRACT: Profile memory usage of requests
 
@@ -85,7 +85,7 @@ sub memory_usage_report {
     my @previous;
 
     for my $s ( @{ $self->memory_usage->state } ) {
-        my ( $time, $msg, @sizes ) = @$s;
+        my ( undef, $msg, @sizes ) = @$s;
 
         my @data = map { $_ ? format_bytes( 1024 * $_) : '' } map { 
             ( $sizes[$_], @previous ? $sizes[$_] - $previous[$_]  : 0 )
@@ -123,17 +123,22 @@ after finalize => sub {
     return unless $_memory_usage_report;
 
     my $c = shift;
-    $c->log->debug( 'memory usage of request'. "\n". $c->memory_usage_report );
+    $c->log->debug(
+        sprintf(qq{[%s] memory usage of request "%s" from "%s"\n},
+            [split m{::}, __PACKAGE__]->[-1],
+            $c->req->uri,
+            $c->req->address,
+        ),
+        $c->memory_usage_report
+    );
 };
 
 }
 
 1;
 
-
-
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -142,7 +147,7 @@ Catalyst::Plugin::MemoryUsage - Profile memory usage of requests
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4.0
 
 =head1 SYNOPSIS
 
@@ -178,7 +183,7 @@ In yourapp.conf:
 C<Catalyst::Plugin::MemoryUsage> adds a memory usage profile to your debugging
 log, which looks like this:   
 
- [debug] memory usage of request
+ [debug] [MemoryUsage] memory usage of request "http://localhost/index" from "127.0.0.1"
  .--------------------------------------------------+------+------+------+------+------+------+------+------+------+------.
  |                                                  | vsz  | del- | rss  | del- | sha- | del- | code | del- | data | del- |
  |                                                  |      | ta   |      | ta   | red  | ta   |      | ta   |      | ta   |
@@ -260,4 +265,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
